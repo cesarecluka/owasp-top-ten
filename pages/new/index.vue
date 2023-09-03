@@ -14,7 +14,7 @@
 
       <input type="text" v-model="new_vulnerability.position" name="position" placeholder="Position on list" required>
 
-      <!-- <input type="text" v-model="new_vulnerability.cwes_mapped" name="cwes_mapped" placeholder="CWEs mapped" required>
+      <input type="text" v-model="new_vulnerability.cwes_mapped" name="cwes_mapped" placeholder="CWEs mapped" required>
 
       <input type="text" v-model="new_vulnerability.max_incidence_rate" name="max_incidence_rate" placeholder="Max incidence rate (%)" required>
 
@@ -34,7 +34,7 @@
 
       <input type="text" v-model="new_vulnerability.img_url" name="img_url" placeholder="Thumbnail URL" required>
 
-      <input type="text" v-model="new_vulnerability.description_short" name="description_short" placeholder="Short description" required> -->
+      <input type="text" v-model="new_vulnerability.description_short" name="description_short" placeholder="Short description" required>
 
       <div class="markdown-input flex-column">
         <div class="legend flex-column">
