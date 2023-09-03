@@ -17,19 +17,7 @@
 
     <div class="vulnerabilities-items flex-column">
 
-      <div class="vulnerabilities-item flex-column" v-for="vulnerability in vulnerabilities" :key="vulnerability.position">
-
-        <nuxt-link tag="a" :to="`/edit/${vulnerability.slug}`" class="edit-btn btn btn-blue"> <fa class="icon-small" :icon="['fas', 'pen-to-square']" /> Edit </nuxt-link>
-
-        <h2>{{vulnerability.title}}</h2>
-
-        <p class="lead-small">{{vulnerability.description_short}}</p>
-
-        <nuxt-link tag="a" :to="`/vulnerability/${vulnerability.slug}`" class="more-btn btn btn-yellow">Learn more</nuxt-link>
-
-        <img :src="vulnerability.img_url" alt="Vulnerability thumbnail">
-
-      </div>
+      <VulnerabilityListItemComponent v-for="vulnerability in vulnerabilities" :key="vulnerability.slug" :vulnerability="vulnerability" />
 
     </div>
 
@@ -38,8 +26,13 @@
 </template>
 
 <script>
+import VulnerabilityListItemComponent from '../components/vulnerabilities/VulnerabilityListItemComponent.vue'
 
 export default {
+
+  components:{
+    VulnerabilityListItemComponent
+  },
 
   computed: {
     vulnerabilities(){
@@ -72,48 +65,6 @@ export default {
     .vulnerabilities-items{
       width: 100%;
       margin-top: 1rem;
-
-      .vulnerabilities-item{
-        position: relative;
-        overflow: hidden;
-        background-color: $light-3;
-        color: $dark-1;
-        width: 85%;
-        margin: 2rem 0;
-        padding: 5rem 2rem 3rem 2rem;
-        box-sizing: border-box;
-        border-radius: 3px;
-
-        .edit-btn{
-          position: absolute;
-          top: 0;
-          right: 0;
-          z-index: 2;
-        }
-
-        h2{
-          z-index: 2;
-        }
-
-        .lead-small{
-          z-index: 2;
-          text-align: center;
-        }
-
-        img{
-          position: absolute;
-          top: 50%;
-          z-index: 1;
-          margin: 0 auto;
-          transform: translateY(-50%);
-          opacity: 0.15;
-        }
-
-        .more-btn{
-          z-index: 2;
-          margin-top: 1.5rem;
-        }
-      }
     }
   }
 
@@ -128,12 +79,6 @@ export default {
 
     .vulnerabilities-items{
       margin-top: 0.5rem;
-
-      .vulnerabilities-item{
-        width: 100%;
-        margin: 1.5rem 0;
-        padding: 4rem 2rem 2.5rem 2rem;
-      }
     }
   }
 
@@ -146,12 +91,6 @@ export default {
 
     .vulnerabilities-items{
       margin-top: 0.5rem;
-
-      .vulnerabilities-item{
-        width: 100%;
-        margin: 1.2rem 0;
-        padding: 3rem 2rem 2rem 2rem;
-      }
     }
   }
 
@@ -164,16 +103,6 @@ export default {
 
     .vulnerabilities-items{
       margin-top: 0.5rem;
-
-      .vulnerabilities-item{
-        width: 100%;
-        margin: 1rem 0;
-        padding: 3rem 2rem 2rem 2rem;
-
-        .more-btn{
-          margin-top: 1rem;
-        }
-      }
     }
   }
 
@@ -190,16 +119,6 @@ export default {
 
     .vulnerabilities-items{
       margin-top: 0;
-
-      .vulnerabilities-item{
-        width: 100%;
-        margin: 1rem 0;
-        padding: 3rem 2rem 2rem 2rem;
-
-        .more-btn{
-          margin-top: 1rem;
-        }
-      }
     }
   }
 
@@ -216,16 +135,6 @@ export default {
 
     .vulnerabilities-items{
       margin-top: 0.5rem;
-
-      .vulnerabilities-item{
-        width: 100%;
-        margin: 0.7rem 0;
-        padding: 2.5rem 1rem 1.5rem 1rem;
-
-        .more-btn{
-          margin-top: 1rem;
-        }
-      }
     }
   }
 </style>
