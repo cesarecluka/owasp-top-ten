@@ -1,0 +1,415 @@
+<template>
+  <div class="add-new flex-column">
+
+
+    <nuxt-link tag="div" to="/" class="back-button"> <fa class="icon-small" :icon="['fas', 'chevron-left']" /> Back to list </nuxt-link>
+
+
+    <h2>Add new vulnerability</h2>
+
+
+    <form @submit.prevent="saveVulnerability" class="flex-column" ref="form">
+
+      <input type="text" v-model="new_vulnerability.title" name="title" placeholder="Vulnerability title" required>
+
+      <input type="text" v-model="new_vulnerability.position" name="position" placeholder="Position on list" required>
+
+      <!-- <input type="text" v-model="new_vulnerability.cwes_mapped" name="cwes_mapped" placeholder="CWEs mapped" required>
+
+      <input type="text" v-model="new_vulnerability.max_incidence_rate" name="max_incidence_rate" placeholder="Max incidence rate (%)" required>
+
+      <input type="text" v-model="new_vulnerability.avg_incidence_rate" name="avg_incidence_rate" placeholder="Avg incidence rate (%)" required>
+
+      <input type="text" v-model="new_vulnerability.avg_weighted_exploit" name="avg_weighted_exploit" placeholder="Avg weighted exploit" required>
+
+      <input type="text" v-model="new_vulnerability.avg_weighted_impact" name="avg_weighted_impact" placeholder="Avg weighted impact" required>
+
+      <input type="text" v-model="new_vulnerability.max_coverage" name="max_coverage" placeholder="Max coverage (%)" required>
+
+      <input type="text" v-model="new_vulnerability.avg_coverage" name="avg_coverage" placeholder="Avg coverage (%)" required>
+
+      <input type="text" v-model="new_vulnerability.total_occurrences" name="total_occurrences" placeholder="Total occurrences" required>
+
+      <input type="text" v-model="new_vulnerability.total_cves" name="total_cves" placeholder="Total CVEs" required>
+
+      <input type="text" v-model="new_vulnerability.img_url" name="img_url" placeholder="Thumbnail URL" required>
+
+      <input type="text" v-model="new_vulnerability.description_short" name="description_short" placeholder="Short description" required> -->
+
+      <div class="markdown-input flex-column">
+        <div class="legend flex-column">
+          <h5>Markdown instructions</h5>
+          <p> <strong>( #, ##, ### ... )</strong> - Headings </p>
+          <p> <strong>( 1., 2., 3. ... )</strong> - Ordered list </p>
+          <p> <strong>( -, *, + )</strong> - Unordered list </p>
+          <p> <strong>( /tab )</strong> - Code block </p>
+          <p> <strong>( [link text](url) )</strong> - External links </p>
+          <p> <strong>( **text** )</strong> - Bold </p>
+          <p> <strong>( *text* )</strong> - Italic </p>
+        </div>
+        <textarea name="text" v-model="new_vulnerability.text" placeholder="Text in mardown format" rows="40" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-green"> <fa class="icon-small" :icon="['fas', 'floppy-disk']" /> Submit </button>
+
+    </form>
+
+
+  </div>
+</template>
+
+<script>
+export default {
+
+  data(){
+    return{
+      new_vulnerability: {}
+    }
+  },
+
+  methods:{
+    saveVulnerability(){
+
+      this.new_vulnerability.slug = this.new_vulnerability.title.replaceAll(' ', '-').toLowerCase()
+      this.new_vulnerability.createdAt = new Date().toJSON();
+      this.new_vulnerability.updatedAt = new Date().toJSON();
+
+      this.$store.commit('vulnerabilities/add', this.new_vulnerability)
+
+      this.new_vulnerability = {}
+      this.$refs.form.reset()
+    }
+  }
+
+}
+</script>
+
+<style lang="scss" scoped>
+  .add-new{
+    position: relative;
+    background-color: $light-2;
+    color: $dark-2;
+    width: 100%;
+    padding: 3rem;
+    box-sizing: border-box;
+
+    .back-button{
+      position: absolute;
+      top: 3rem;
+      left: 3rem;
+      color: $dark-4;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+
+      &:hover{
+        transform: translateX(1rem);
+      }
+    }
+
+    form{
+      width: 50%;
+      margin-top: 1.5rem;
+
+      input{
+        font-size: 1.2rem;
+        width: 100%;
+        margin-top: 1rem;
+        padding: 1rem;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 3px;
+      }
+
+      input:focus{
+        outline: none;
+      }
+
+      .markdown-input{
+        width: 100%;
+        margin-top: 1rem;
+
+        .legend{
+          align-items: flex-start;
+          background-color: $light-3;
+          width: 100%;
+          padding: 0.7rem 1rem;
+          box-sizing: border-box;
+          border-radius: 3px 3px 0 0;
+
+          h5{
+            color: $dark-1;
+            font-size: 1.4rem;
+            font-weight: 600;
+          }
+
+          p{
+            color: $dark-2;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+
+            strong{
+              font-weight: 700;
+            }
+          }
+        }
+
+        textarea{
+          font-size: 1.2rem;
+          width: 100%;
+          padding: 1rem;
+          box-sizing: border-box;
+          border: none;
+          border-radius: 0 0 3px 3px;
+        }
+
+        textarea:focus{
+          outline: none;
+        }
+      }
+
+      .btn{
+        margin-top: 1.5rem;
+      }
+    }
+  }
+
+
+
+  //********RESPONSIVE*********/
+  .laptopL{
+    form{
+      width: 60%;
+      margin-top: 1rem;
+
+      input{
+        font-size: 1.1rem;
+        padding: 0.8rem;
+      }
+
+      .markdown-input{
+
+        .legend{
+
+          h5{
+            font-size: 1.3rem;
+          }
+
+          p{
+            font-size: 1rem;
+          }
+        }
+
+        textarea{
+          font-size: 1.1rem;
+          padding: 0.8rem;
+        }
+      }
+
+      .btn{
+        margin-top: 1.2rem;
+      }
+    }
+  }
+
+  .laptop{
+
+    .back-button{
+      top: 2rem;
+      left: 2rem;
+      font-size: 1rem;
+    }
+
+    form{
+      width: 60%;
+      margin-top: 1rem;
+
+      input{
+        font-size: 1rem;
+        padding: 0.7rem;
+      }
+
+      .markdown-input{
+
+        .legend{
+
+          h5{
+            font-size: 1.1rem;
+          }
+
+          p{
+            font-size: 0.9rem;
+          }
+        }
+
+        textarea{
+          font-size: 1rem;
+          padding: 0.7rem;
+        }
+      }
+
+      .btn{
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .tablet{
+    padding: 1.5rem;
+
+    .back-button{
+      top: 1.5rem;
+      left: 1.5rem;
+      font-size: 0.9rem;
+
+      &:hover{
+        transform: translateX(0.5rem);
+      }
+    }
+
+    h2{
+      margin-top: 1.5rem;
+    }
+
+    form{
+      width: 90%;
+      margin-top: 0.5rem;
+
+      input{
+        font-size: 0.9rem;
+        padding: 0.6rem;
+      }
+
+      .markdown-input{
+
+        .legend{
+
+          h5{
+            font-size: 1rem;
+          }
+
+          p{
+            font-size: 0.8rem;
+          }
+        }
+
+        textarea{
+          font-size: 0.9rem;
+          padding: 0.6rem;
+        }
+      }
+
+      .btn{
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .phone{
+    padding: 1rem;
+
+    .back-button{
+      top: 1rem;
+      left: 1rem;
+      font-size: 0.9rem;
+
+      &:hover{
+        transform: translateX(0.5rem);
+      }
+    }
+
+    h2{
+      margin-top: 1.7rem;
+    }
+
+    form{
+      width: 100%;
+      margin-top: 0;
+
+      input{
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        margin-top: 0.8rem;
+      }
+
+      .markdown-input{
+        margin-top: 0.8rem;
+
+        .legend{
+
+          h5{
+            font-size: 0.9rem;
+          }
+
+          p{
+            font-size: 0.75rem;
+          }
+        }
+
+        textarea{
+          font-size: 0.8rem;
+          padding: 0.5rem;
+        }
+      }
+
+      .btn{
+        margin-top: 0.8rem;
+      }
+    }
+  }
+
+  .phoneS{
+    padding: 1rem;
+
+    .back-button{
+      top: 1rem;
+      left: 1rem;
+      font-size: 0.8rem;
+
+      &:hover{
+        transform: translateX(0.3rem);
+      }
+    }
+
+    h2{
+      margin-top: 1.7rem;
+    }
+
+    form{
+      width: 100%;
+      margin-top: 0;
+
+      input{
+        font-size: 0.7rem;
+        padding: 0.5rem;
+        margin-top: 0.7rem;
+      }
+
+      .markdown-input{
+        margin-top: 0.7rem;
+
+        .legend{
+
+          h5{
+            font-size: 0.8rem;
+          }
+
+          p{
+            font-size: 0.65rem;
+          }
+        }
+
+        textarea{
+          font-size: 0.7rem;
+          padding: 0.5rem;
+        }
+      }
+
+      .btn{
+        margin-top: 0.7rem;
+      }
+    }
+  }
+</style>

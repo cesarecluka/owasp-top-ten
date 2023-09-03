@@ -1,0 +1,14 @@
+{
+  "title": "Broken Access Control",
+  "position": "1",
+  "cwes_mapped": "34",
+  "max_incidence_rate": "55.97%",
+  "avg_incidence_rate": "3.81%",
+  "avg_weighted_exploit": "6.92",
+  "avg_weighted_impact": "5.93",
+  "max_coverage": "94.55%",
+  "avg_coverage": "47.72%",
+  "total_occurrences": "318,487",
+  "total_cves": "19013",
+  "description_short": "Broken Access Control moves up from the fifth position; 94% of applications were tested for some form of broken access control. The 34 Common Weakness Enumerations (CWEs) mapped to Broken Access Control had more occurrences in applications than any other category."
+}
